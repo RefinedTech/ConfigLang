@@ -1,6 +1,6 @@
-package me.ikevoodoo.configlang;
+package dev.refinedtech.configlang;
 
-import me.ikevoodoo.configlang.scope.Scope;
+import dev.refinedtech.configlang.scope.Scope;
 
 import java.util.ArrayList;
 import java.util.HashMap;

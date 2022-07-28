@@ -1,8 +1,7 @@
-package me.ikevoodoo.configlang;
+package dev.refinedtech.configlang;
 
-import me.ikevoodoo.configlang.scope.Scope;
+import dev.refinedtech.configlang.scope.Scope;
 
-import java.lang.module.Configuration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.function.Consumer;
  * ConfigStructure represents a structure of a config file.
  * It also contains a list of required children.
  * If the structure is not valid, it will return an error message when attempting to execute.
- * It can be ran with the execute method.
+ * It can be run with the execute method.
  * */
 @SuppressWarnings("unused")
 public abstract class ConfigStructure {

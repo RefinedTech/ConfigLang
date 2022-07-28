@@ -1,8 +1,8 @@
-package me.ikevoodoo.configlang.scope;
+package dev.refinedtech.configlang.scope;
 
-import me.ikevoodoo.configlang.ConfigLang;
-import me.ikevoodoo.configlang.ConfigSection;
-import me.ikevoodoo.configlang.variables.VariableStorage;
+import dev.refinedtech.configlang.ConfigLang;
+import dev.refinedtech.configlang.ConfigSection;
+import dev.refinedtech.configlang.variables.VariableStorage;
 
 public class Scope {
 

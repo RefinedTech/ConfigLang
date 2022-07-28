@@ -1,4 +1,4 @@
-package me.ikevoodoo.configlang.variables;
+package dev.refinedtech.configlang.variables;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ public class VariableStorage {
 
     public <T> Optional<T> get(String key) {
         Optional<Object> opt = this.getRaw(key);
-        if (!opt.isPresent()) return Optional.empty();
+        if (opt.isEmpty()) return Optional.empty();
 
         try {
             return Optional.ofNullable((T) opt.get());
@@ -38,7 +38,7 @@ public class VariableStorage {
 
     public <T> Optional<T> parseVariable(String variableAccessor) {
         Optional<Object> opt = this.parseVariableRaw(variableAccessor);
-        if (!opt.isPresent()) return Optional.empty();
+        if (opt.isEmpty()) return Optional.empty();
         try {
             return Optional.ofNullable((T) opt.get());
         } catch (ClassCastException e) {

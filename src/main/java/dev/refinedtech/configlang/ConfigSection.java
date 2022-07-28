@@ -1,4 +1,4 @@
-package me.ikevoodoo.configlang;
+package dev.refinedtech.configlang;
 
 import java.util.Optional;
 import java.util.Set;
@@ -36,7 +36,7 @@ public abstract class ConfigSection {
                 sb.append(" ↓ ");
                 sb.append("\n");
                 sb.append("  ".repeat(Math.max(0, depth) + 1));
-                sb.append(getConfigSection(key).get().treeString(depth + 1));
+                sb.append(getConfigSection(key).orElseThrow().treeString(depth + 1));
             } else {
                 sb.append(" = ");
                 sb.append(getObject(key));
