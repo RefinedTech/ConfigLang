@@ -2,6 +2,9 @@ package dev.refinedtech.configlang;
 
 import dev.refinedtech.configlang.scope.Scope;
 
+import java.io.File;
+import java.io.IOException;
+import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
@@ -252,5 +255,15 @@ class HashMapConfigSection extends ConfigSection {
     @Override
     public void set(String key, Object value) {
         this.map.put(key, value);
+    }
+
+    @Override
+    public void save(File file) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void load(File file) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -1,5 +1,7 @@
 package dev.refinedtech.configlang;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -27,6 +29,10 @@ public abstract class ConfigSection {
     public abstract Object getObject(String key, Object def);
 
     public abstract void set(String key, Object value);
+
+    public abstract void save(File file) throws IOException;
+
+    public abstract void load(File file) throws IOException;
 
     public String treeString(int depth) {
         StringBuilder sb = new StringBuilder();
