@@ -20,7 +20,11 @@ public abstract class ConfigSection {
 
     public abstract <T> Optional<T> get(String key);
 
+    public abstract <T> Optional<T> get(String key, T def);
+
     public abstract Object getObject(String key);
+
+    public abstract Object getObject(String key, Object def);
 
     public abstract void set(String key, Object value);
 
