@@ -235,8 +235,18 @@ class HashMapConfigSection extends ConfigSection {
     }
 
     @Override
-    public Object getObject(String key) {
-        return this.map.get(key);
+    public <T> T get(String key, T def) {
+        return this.<T>get(key).orElse(def);
+    }
+
+    @Override
+    public Optional<Object> getObject(String key) {
+        return Optional.of(this.map.get(key));
+    }
+
+    @Override
+    public Object getObject(String key, Object def) {
+        return this.getObject(key).orElse(def);
     }
 
     @Override
