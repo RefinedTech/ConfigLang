@@ -1,8 +1,12 @@
 package me.ikevoodoo.configlang;
 
+import me.ikevoodoo.configlang.scope.Scope;
+
+import java.lang.module.Configuration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -31,23 +35,27 @@ public abstract class ConfigStructure {
     public static ConfigStructure keyStructure(String key) {
         return new ConfigStructure(key) {
             @Override
-            protected Object run(ConfigSection section, Object... args) {
+            protected Object run(ConfigSection section, Scope scope, Object... args) {
                 return null;
             }
         };
     }
 
-    public final Object execute(ConfigSection section, Consumer<String> error, Object... args) {
+    public final Object execute(ConfigSection section, Consumer<String> error, Scope scope, Object... args) {
         String err = this.matches(section);
         if (err != null) {
             if (error != null) error.accept(err);
             return null;
         }
 
-        return this.run(section, args);
+        return this.run(section, scope, args);
     }
 
-    protected abstract Object run(ConfigSection section, Object... args);
+    public boolean returnsData() {
+        return false;
+    }
+
+    protected abstract Object run(ConfigSection section, Scope scope, Object... args);
 
     public final String matches(ConfigSection configuration) {
         // If the configuration's name is not the same as this key, return false
@@ -67,13 +75,14 @@ public abstract class ConfigStructure {
 
             // If the ConfigStructure has required sub-structures
             if (!required.children().isEmpty()) {
-
                 if (!configuration.isConfigSection(required.key())) {
                     return String.format("The key %s.%s required child elements but none found!", configuration.getPath(), required.key());
                 }
 
-                // Get the ConfigurationSection from the current ConfigurationSection for that ConfigStructure
-                ConfigSection config = configuration.getConfigSection(required.key());
+                // Get the ConfigSection from the current ConfigSection for that ConfigStructure
+                Optional<ConfigSection> opt = configuration.getConfigSection(required.key());
+
+                ConfigSection config = opt.orElse(null);
 
                 // If it doesn't exist return false
                 if (config == null) {
@@ -81,7 +90,7 @@ public abstract class ConfigStructure {
                 }
 
                 // If it exists, and the ConfigStructure does not match that ConfigurationSection return false
-                String err = required.matches(configuration);
+                String err = required.matches(config);
                 if (err != null) {
                     return err;
                 }
