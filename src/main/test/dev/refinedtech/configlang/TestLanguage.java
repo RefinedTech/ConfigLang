@@ -4,7 +4,6 @@ import dev.refinedtech.configlang.scope.Scope;
 
 import java.io.File;
 import java.io.IOException;
-import java.rmi.UnexpectedException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
@@ -161,6 +160,11 @@ public class TestLanguage {
         System.out.println(section.treeString(0));
 
         Scope scope = new Scope("root");
+        scope.variables().set("test", new Object() {
+            public final String num = "123";
+        });
+
+        System.out.println(scope.variables().parseVariableRaw("test's num"));
 
         lang.execute(section, scope);
     }

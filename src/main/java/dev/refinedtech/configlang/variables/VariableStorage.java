@@ -1,5 +1,6 @@
 package dev.refinedtech.configlang.variables;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
@@ -79,7 +80,20 @@ public class VariableStorage {
         if (accessors.length == 0) return obj;
         String[] sub = new String[accessors.length - 1];
         System.arraycopy(accessors, 1, sub, 0, sub.length);
-        return getFromAccessors(obj.getClass().getDeclaredField(accessors[0]).get(obj), sub);
+        Field field = obj.getClass().getField(accessors[0]);
+        boolean accessible = field.isAccessible();
+        field.setAccessible(true);
+        Object value = field.get(obj);
+        field.setAccessible(accessible);
+        return getFromAccessors(value, sub);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Variables:\n");
+        for (String key : this.variables.keySet()) {
+            sb.append("  ").append(key).append(" = ").append(this.variables.get(key)).append("\n");
+        }
+        return sb.toString();
+    }
 }
